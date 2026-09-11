@@ -1,1 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Big Math! - Real Authentic Calculator</title>
+  <meta name="description" content="The world's most agonizingly slow calculator. Looks like an authentic calculator app, but computes simple arithmetic with absurd quantum physics and delivers confidently incorrect answers.">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="The Big Math!">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="/logo.png">
+</head>
+<body>
 
+  <!-- Retro CRT Scanline Filter (Optional) -->
+  <div class="crt-overlay hidden" id="crtOverlay"></div>
+
+  <!-- Authentic Mobile Calculator Shell -->
+  <main class="calculator-app">
+    
+    <!-- Top System / Utility Bar -->
+    <header class="calc-top-bar">
+      <div class="calc-brand">
+        <img src="/logo.png" class="calc-logo-img" alt="The Big Math! Logo">
+        <span class="calc-title">The Big Math!</span>
+      </div>
+      <div class="calc-actions">
+        <a href="/TheBigMath.apk" download="TheBigMath.apk" class="calc-action-pill" id="apkBtn" title="Download Android APK">🤖 APK</a>
+        <button class="calc-action-pill" id="turboToggle" title="Bribe CPU to unlock 10x speed">🪙 BRIBE</button>
+        <button class="calc-action-icon" id="soundToggle" title="Toggle Sound">🔊</button>
+        <button class="calc-action-icon" id="installBtn" title="Install App" style="display: none;">📲</button>
+      </div>
+    </header>
+
+    <!-- Authentic Real Calculator Display Area -->
+    <section class="real-calc-display" id="displayArea">
+      <!-- Muted history line (e.g. "1 + 2 =" or quantum expansion) -->
+      <div class="calc-history" id="calcHistory">&nbsp;</div>
+      
+      <!-- Huge right-aligned primary number readout -->
+      <div class="calc-main-value" id="calcInput">0</div>
+
+      <!-- Integrated Subtle Progress Bar (active during computation) -->
+      <div class="calc-computing-bar hidden" id="computingBar">
+        <div class="computing-status">
+          <span><span class="blink-dot"></span><span id="computingStatusText">EVALUATING RIGOROUS PROOF...</span></span>
+          <span id="calcProgressPercent">0%</span>
+        </div>
+        <div class="calc-progress-track">
+          <div class="calc-progress-fill" id="calcProgressBar"></div>
+        </div>
+        <!-- Waiting time bribe reminder -->
+        <div class="bribe-reminder-strip" id="bribeReminderStrip" title="Click to open CPU Bribe Audit">
+          💡 <span id="bribeReminderText">CAN'T BEAR THE WAIT? Tap <strong>🪙 BRIBE</strong> above to speed this up 10×!</span>
+        </div>
+      </div>
+
+      <!-- Official Proof Receipt Tape (appears when result is delivered) -->
+      <div class="calc-proof-receipt hidden" id="proofReceipt">
+        <div class="receipt-header">OFFICIAL PROOF RECEIPT</div>
+        <div class="receipt-content" id="proofContent"></div>
+      </div>
+    </section>
+
+    <!-- Real Calculator 4x5 Circular Keypad Grid -->
+    <section class="real-keypad-grid">
+      <!-- Row 1: Function Keys & Divide -->
+      <button class="r-btn btn-fn" data-key="C" id="keyClear">AC</button>
+      <button class="r-btn btn-fn" data-key="DEL" id="keyDel">⌫</button>
+      <button class="r-btn btn-fn" data-key="^" id="keyPow">xʸ</button>
+      <button class="r-btn btn-op" data-key="/" id="keyDiv">÷</button>
+
+      <!-- Row 2: 7, 8, 9, Multiply -->
+      <button class="r-btn btn-num" data-key="7">7</button>
+      <button class="r-btn btn-num" data-key="8">8</button>
+      <button class="r-btn btn-num" data-key="9">9</button>
+      <button class="r-btn btn-op" data-key="*" id="keyMul">×</button>
+
+      <!-- Row 3: 4, 5, 6, Subtract -->
+      <button class="r-btn btn-num" data-key="4">4</button>
+      <button class="r-btn btn-num" data-key="5">5</button>
+      <button class="r-btn btn-num" data-key="6">6</button>
+      <button class="r-btn btn-op" data-key="-" id="keySub">−</button>
+
+      <!-- Row 4: 1, 2, 3, Add -->
+      <button class="r-btn btn-num" data-key="1">1</button>
+      <button class="r-btn btn-num" data-key="2">2</button>
+      <button class="r-btn btn-num" data-key="3">3</button>
+      <button class="r-btn btn-op" data-key="+" id="keyAdd">+</button>
+
+      <!-- Row 5: 0 (wide pill), Decimal, Equal -->
+      <button class="r-btn btn-num btn-zero" data-key="0">0</button>
+      <button class="r-btn btn-num" data-key=".">.</button>
+      <button class="r-btn btn-equal" id="evalBtn">=</button>
+    </section>
+
+  </main>
+
+  <!-- Magnificent Output Showcase Modal -->
+  <div class="modal-backdrop hidden" id="magnificentModal">
+    <div class="magnificent-card">
+      <div class="magnificent-badge">🏆 MAGNIFICENT CERTIFIED PROOF 🏆</div>
+      <div class="magnificent-equation" id="magEquation">1 + 2 =</div>
+      <div class="magnificent-number" id="magNumber">300</div>
+      
+      <div class="magnificent-proof-container">
+        <div class="mag-proof-title">CERTIFIED PEER-REVIEWED MATHEMATICAL JUSTIFICATION:</div>
+        <div class="mag-proof-body" id="magProof">
+          Loading derivation...
+        </div>
+      </div>
+
+      <div class="magnificent-actions">
+        <button class="mag-btn mag-btn-copy" id="magCopyBtn">📋 COPY CERTIFIED PROOF</button>
+        <button class="mag-btn mag-btn-keep" id="magKeepBtn">👁️ CLOSE DIALOG & KEEP RESULT ON SCREEN</button>
+        <button class="mag-btn mag-btn-new" id="magNewCalcBtn">🔄 DISCARD & START NEW CALCULATION</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mandatory Cognitive Verification / Bribe Quiz Modal -->
+  <div class="modal-backdrop hidden" id="quizModal">
+    <div id="quizBody">
+      <!-- Injected dynamically by RageQuiz -->
+    </div>
+  </div>
+
+  <!-- Inescapable Escape Trap Modal -->
+  <div class="modal-backdrop hidden" id="escapeTrapModal">
+    <div class="quiz-card animate-pop" style="border: 2px solid #ffffff; text-align: center; max-width: 440px;">
+      <div class="quiz-header" style="justify-content: center; flex-direction: column; gap: 8px;">
+        <span class="quiz-step-badge" style="background: #ffffff; color: #000000; font-weight: 900;">🚫 ESCAPE DENIED</span>
+        <h3 class="quiz-title" style="color: #ffffff; font-size: 1.15rem; margin: 0;">CALCULATION CANNOT BE ABANDONED</h3>
+      </div>
+      <p class="quiz-question-text" style="margin: 14px 0; font-size: 0.88rem; line-height: 1.5; color: #d4d4d8;">
+        ⚠️ <strong>64TB of Quantum Arithmetic VRAM is currently allocated!</strong><br><br>
+        Leaving now will cause an existential null pointer collapse. You are thermodynamically bound to wait until your certified result is calculated!
+      </p>
+      <div style="background: #18181b; border: 1px dashed rgba(255, 255, 255, 0.4); border-radius: 10px; padding: 12px; margin-bottom: 14px; font-size: 0.82rem; text-align: left; color: #fafafa;">
+        💡 <strong>CANNOT BEAR THE DELAY?</strong><br>
+        The CPU accepts corruption! Solve a quick 5–10 question verification audit to unlock 10× Turbo Speed!
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="quiz-btn selected" id="trapBribeBtn" style="justify-content: center; font-weight: 800; background: #ffffff; color: #000000; cursor: pointer;">
+          🪙 BRIBE CPU NOW (SKIP THE WAIT)
+        </button>
+        <button class="quiz-btn" id="trapSurrenderBtn" style="justify-content: center; font-size: 0.82rem; color: #a1a1aa; cursor: pointer; border-color: #3f3f46;">
+          I SUBMIT TO THE WAIT (RESUME)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="sound.js"></script>
+  <script src="questions.js"></script>
+  <script src="rage_quiz.js"></script>
+  <script src="engine.js"></script>
+  <script>
+    // Keypad event binding
+    document.querySelectorAll('.r-btn[data-key]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-key');
+        window.bigMathEngine.appendInput(key);
+      });
+    });
+
+    // Keyboard support
+    window.addEventListener('keydown', (e) => {
+      if (window.bigMathEngine.isComputing) {
+        if (e.key === 'Escape' || e.key === 'Backspace') {
+          window.bigMathEngine.showEscapeTrap();
+        }
+        return;
+      }
+      if (e.key >= '0' && e.key <= '9') window.bigMathEngine.appendInput(e.key);
+      else if (['+', '-', '*', '/', '^', '.'].includes(e.key)) window.bigMathEngine.appendInput(e.key);
+      else if (e.key === 'Enter' || e.key === '=') window.bigMathEngine.startComputation();
+      else if (e.key === 'Backspace') window.bigMathEngine.appendInput('DEL');
+      else if (e.key === 'Escape') window.bigMathEngine.appendInput('C');
+    });
+
+    // Evaluate button
+    document.getElementById('evalBtn').addEventListener('click', () => {
+      window.bigMathEngine.startComputation();
+    });
+
+    // Bribe CPU button (Triggers 5 to 10 questions to unlock 10X Turbo)
+    const turboBtn = document.getElementById('turboToggle');
+    turboBtn.addEventListener('click', () => {
+      window.bigMathEngine.triggerBribeQuiz();
+    });
+
+    // Bribe reminder strip click opens bribe quiz
+    const bribeReminderStrip = document.getElementById('bribeReminderStrip');
+    if (bribeReminderStrip) {
+      bribeReminderStrip.addEventListener('click', () => {
+        window.bigMathEngine.triggerBribeQuiz();
+      });
+    }
+
+    // Magnificent Modal Handlers
+    const magModal = document.getElementById('magnificentModal');
+    const magKeepBtn = document.getElementById('magKeepBtn');
+    const magNewBtn = document.getElementById('magNewCalcBtn');
+    const magCopyBtn = document.getElementById('magCopyBtn');
+
+    if (magKeepBtn) {
+      magKeepBtn.addEventListener('click', () => {
+        magModal.classList.add('hidden');
+      });
+    }
+
+    if (magNewBtn) {
+      magNewBtn.addEventListener('click', () => {
+        magModal.classList.add('hidden');
+        window.bigMathEngine.resetCalculator();
+      });
+    }
+
+    if (magCopyBtn) {
+      magCopyBtn.addEventListener('click', () => {
+        const calc = window.bigMathEngine.currentCalculation;
+        if (!calc) return;
+        const text = `🧮 The Big Math! Output:\n${calc.rawInput} = ${calc.answer}\n\nDerivation:\n${calc.proof.replace(/<[^>]+>/g, '')}`;
+        navigator.clipboard.writeText(text).then(() => {
+          magCopyBtn.textContent = '✅ PROOF COPIED TO CLIPBOARD!';
+          setTimeout(() => {
+            magCopyBtn.textContent = '📋 COPY CERTIFIED PROOF';
+          }, 2500);
+        });
+      });
+    }
+
+    // Inescapable Trap Dialog Handlers
+    const trapBribeBtn = document.getElementById('trapBribeBtn');
+    const trapSurrenderBtn = document.getElementById('trapSurrenderBtn');
+    if (trapBribeBtn) {
+      trapBribeBtn.addEventListener('click', () => {
+        window.bigMathEngine.hideEscapeTrap();
+        window.bigMathEngine.triggerBribeQuiz();
+      });
+    }
+    if (trapSurrenderBtn) {
+      trapSurrenderBtn.addEventListener('click', () => {
+        window.bigMathEngine.hideEscapeTrap();
+      });
+    }
+
+    // Safeguard & Lockdown: Prevent tab/browser exit or back navigation while calculating
+    window.addEventListener('beforeunload', (e) => {
+      if (window.bigMathEngine && (window.bigMathEngine.isComputing || window.bigMathEngine.justFinished)) {
+        e.preventDefault();
+        e.returnValue = "CALCULATION IN PROGRESS! If you leave now, universal math constants will be permanently damaged!";
+        return e.returnValue;
+      }
+    });
+
+    // Intercept browser back button to trap the user
+    try {
+      history.pushState(null, '', location.href);
+      window.addEventListener('popstate', () => {
+        if (window.bigMathEngine && window.bigMathEngine.isComputing) {
+          history.pushState(null, '', location.href);
+          window.bigMathEngine.showEscapeTrap();
+        }
+      });
+    } catch (e) {}
+
+    // Sound toggle
+    const soundBtn = document.getElementById('soundToggle');
+    soundBtn.addEventListener('click', () => {
+      const isMuted = window.soundEngine.toggleMute();
+      soundBtn.textContent = isMuted ? '🔇' : '🔊';
+    });
+
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('The Big Math PWA Active:', reg.scope))
+          .catch(err => console.error('PWA SW Error:', err));
+      });
+    }
+
+    // PWA Install Button Handler
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) installBtn.style.display = 'flex';
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            installBtn.style.display = 'none';
+          }
+          deferredPrompt = null;
+        } else {
+          alert("To install The Big Math! as an app:\n\n• In Chrome/Edge: Click the install icon (📥) in the address bar, or menu (...) -> 'Install The Big Math!'.\n• On Mobile: Tap 'Share' / 'Menu' -> 'Add to Home Screen'.");
+        }
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      if (installBtn) installBtn.style.display = 'none';
+      console.log('The Big Math installed as standalone app!');
+    });
+  </script>
+</body>
+</html>

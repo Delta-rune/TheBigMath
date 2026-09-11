@@ -1,0 +1,26 @@
+# Android build artifacts & cache
+.gradle/
+**/build/
+**/.kotlin/
+*.log
+local.properties
+.cxx/
+captures/
+*.iml
+
+# IDE files
+.idea/
+.vscode/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup and temp files
+*- Copy.*
+*.bak
+*.tmp
