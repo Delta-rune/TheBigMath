@@ -89,7 +89,11 @@ flowchart TD
 
 ### Project Demo
 # Video
-No demo video uploaded yet.
+<video src="screen-20260912-035411.mp4" controls="controls" width="100%">
+  Your browser does not support the video tag.
+</video>
+
+[▶️ Watch / Download Demo Video (screen-20260912-035411.mp4)](screen-20260912-035411.mp4)
 
 # Additional Demos
 - Web Version: Open index.html in any modern browser
