@@ -2,6 +2,10 @@
 
 # The Big Math!
 
+[![Latest Release](https://img.shields.io/github/v/release/Delta-rune/TheBigMath?color=34d399&label=Latest%20Release%20%28APK%29&logo=android)](https://github.com/Delta-rune/TheBigMath/releases/latest)
+[![Download APK](https://img.shields.io/badge/Download-TheBigMath.apk-2563EB?logo=android)](https://github.com/Delta-rune/TheBigMath/releases/download/v1.0.0/TheBigMath.apk)
+[![Watch Demo Video](https://img.shields.io/badge/Demo_Video-Play_on_GitHub-E11D48?logo=github)](https://github.com/Delta-rune/TheBigMath/blob/main/screen-20260912-035411.mp4)
+
 ## Basic Details
 ### Team Name: Delta-rune
 
@@ -36,7 +40,10 @@ cd TheBigMath
 ```
 
 Android Application:
-Open the `android/` directory in Android Studio, or build via Gradle:
+Download the pre-built APK from the [Official GitHub Release](https://github.com/Delta-rune/TheBigMath/releases/latest):
+- Direct Download: [**TheBigMath.apk (v1.0.0)**](https://github.com/Delta-rune/TheBigMath/releases/download/v1.0.0/TheBigMath.apk)
+
+Or build from source via Gradle:
 ```bash
 cd android
 ./gradlew assembleDebug
@@ -51,7 +58,7 @@ python -m http.server 8000
 Open http://localhost:8000 in your browser.
 
 Android Application:
-Install the pre-built APK:
+Install the official pre-built APK via ADB:
 ```bash
 adb install TheBigMath.apk
 ```
@@ -89,15 +96,24 @@ flowchart TD
 
 ### Project Demo
 # Video
-<video src="screen-20260912-035411.mp4" controls="controls" width="100%">
-  Your browser does not support the video tag.
-</video>
 
-[▶️ Watch / Download Demo Video (screen-20260912-035411.mp4)](screen-20260912-035411.mp4)
+<div align="center">
+  <img src="demo.gif" alt="The Big Math! Live Demo Animation" width="340" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);" />
+  <p><em>Autoplaying inline demo preview. Click below to play the full 3.5-minute demonstration with audio!</em></p>
+  <p>
+    <a href="https://github.com/Delta-rune/TheBigMath/blob/main/screen-20260912-035411.mp4">
+      <img src="https://img.shields.io/badge/▶️_Play_Full_Demo_Video_(3m15s)-GitHub_Player-E11D48?style=for-the-badge&logo=github" alt="Play Full Demo Video on GitHub" />
+    </a>
+    &nbsp;
+    <a href="https://github.com/Delta-rune/TheBigMath/releases/download/v1.0.0/screen-20260912-035411.mp4">
+      <img src="https://img.shields.io/badge/📥_Download_HD_MP4_(22MB)-2563EB?style=for-the-badge" alt="Download HD MP4" />
+    </a>
+  </p>
+</div>
 
 # Additional Demos
 - Web Version: Open index.html in any modern browser
-- Android APK: TheBigMath.apk included in the repository root
+- Android APK: [Download TheBigMath.apk (v1.0.0 Release)](https://github.com/Delta-rune/TheBigMath/releases/latest)
 
 ## Team Contributions
 - Nripan Satheesh: Full-stack development, Web PWA implementation, procedural audio synthesis, question database curation, and native Android app with Jetpack Compose.
